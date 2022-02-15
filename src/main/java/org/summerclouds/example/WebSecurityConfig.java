@@ -1,26 +1,38 @@
 package org.summerclouds.example;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.summerclouds.common.security.jwt.DaoJwtAuthenticationProvider;
 import org.summerclouds.common.security.jwt.JwtConfigurer;
+import org.summerclouds.common.security.permissions.ResourceAceVoter;
+import org.summerclouds.common.security.permissions.RoleAceVoter;
+import org.summerclouds.common.security.permissions.Acl;
 
 // https://www.baeldung.com/spring-security-expressions
 
 @Configuration
-//@EnableAutoConfiguration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
@@ -32,7 +44,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorities("USER")
         .and()
         .withUser("admin").password(encoder().encode("admin"))
-        .authorities("ADMIN");
+        .authorities(
+        		new Acl("web:*:/secret:Access secrets", "role:*:admin:Access admin role")
+//        		,new SimpleGrantedAuthority("ADMIN")
+        		)
+        ;
         
         auth.authenticationProvider(new DaoJwtAuthenticationProvider(auth.getDefaultUserDetailsService()));
     }
@@ -53,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    	.anonymous().principal("user").authenticationProvider(new AnonymousAuthenticationProvider(encoder().encode("user1Pass")))
 //        .and()
         .authorizeRequests()
-        .antMatchers("/secret").hasAuthority("ADMIN")
+        .antMatchers("/secret").hasAuthority("ace_web:${method}:${url}")
+        .accessDecisionManager(accessDecisionManager())
 //        .antMatchers("/jwt_token").permitAll()
         .and()
         .apply(new JwtConfigurer<>())
@@ -82,6 +99,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.allowedHeaders("*");
 	}
 
+	@Bean
+	public AccessDecisionManager accessDecisionManager() {
+		
+	    List<AccessDecisionVoter<? extends Object>> decisionVoters 
+	      = Arrays.asList(
+		    new CustomBasedVoter(),
+  		    new ResourceAceVoter(),
+	        new WebExpressionVoter(),
+	        new RoleAceVoter(), // instead of RoleVoter()
+	        new AuthenticatedVoter()
+	        );
+	    return new AffirmativeBased(decisionVoters);
+	}
+	
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
