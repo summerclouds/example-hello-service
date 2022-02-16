@@ -7,11 +7,9 @@
 	  <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>examples-hello-service</artifactId>
-  <packaging>pom</packaging>
-  
+
   <modules>
-  	<module>example-security-jwt</module>
-  	<module>example-security-acl</module>
-  	<module>example-security-realm</module>
+  	<module>example-security1</module>
+  	<module>example-security2</module>
   </modules>
 </project>

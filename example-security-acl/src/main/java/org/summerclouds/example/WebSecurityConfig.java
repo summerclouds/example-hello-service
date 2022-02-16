@@ -3,7 +3,6 @@ package org.summerclouds.example;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -11,13 +10,11 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -25,9 +22,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.summerclouds.common.security.jwt.DaoJwtAuthenticationProvider;
 import org.summerclouds.common.security.jwt.JwtConfigurer;
+import org.summerclouds.common.security.permissions.Acl;
 import org.summerclouds.common.security.permissions.ResourceAceVoter;
 import org.summerclouds.common.security.permissions.RoleAceVoter;
-import org.summerclouds.common.security.permissions.Acl;
 
 // https://www.baeldung.com/spring-security-expressions
 
