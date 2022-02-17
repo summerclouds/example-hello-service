@@ -46,8 +46,8 @@ public class HelloSecretTests {
 		String token = null;
 		{
 			
-			MvcResult result = this.mockMvc.perform(post("/jwt_token").headers(getBasicAuth("admin", "admin")) ).andDo(print()).andExpect(status().isOk())
-					//.andExpect(jsonPath("$.username").value("admin"))
+			MvcResult result = this.mockMvc.perform(post("/jwt_token").headers(getBasicAuth("user", "user")) ).andDo(print()).andExpect(status().isOk())
+					.andExpect(jsonPath("$.username").value("user"))
 					.andReturn();
 			
 			String resultContent = result.getResponse().getContentAsString();
