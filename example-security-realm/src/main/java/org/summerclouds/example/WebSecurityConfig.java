@@ -24,6 +24,7 @@ import org.summerclouds.common.security.jwt.JwtConfigurer;
 import org.summerclouds.common.security.permissions.ResourceAceVoter;
 import org.summerclouds.common.security.permissions.RoleAceVoter;
 import org.summerclouds.common.security.realm.MemoryRoleAclRealm;
+import org.summerclouds.common.security.realm.MemoryRoleRealm;
 import org.summerclouds.common.security.realm.MemoryUserAclRealm;
 import org.summerclouds.common.security.realm.MemoryUserRealm;
 import org.summerclouds.common.security.realm.MemoryUserRolesRealm;
@@ -115,7 +116,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Bean
     public Realm roleAclRealm() {
-    	return new MemoryRoleAclRealm().add("USER", "web:*:/secret");
+    	return new MemoryRoleAclRealm().add("user", "web:*:/secret");
+    }
+    
+    @Bean
+    public Realm roleRealm() {
+    	return new MemoryRoleRealm().add("admin").add("user");
     }
     
 }

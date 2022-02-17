@@ -6,7 +6,8 @@
 	  <artifactId>common-parent</artifactId>
 	  <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>examples-hello-service</artifactId>
+  <groupId>org.sommerclouds.example</groupId>
+  <artifactId>examples-spring</artifactId>
   <packaging>pom</packaging>
   
   <modules>
