@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.summerclouds.common.security.jwt.DaoJwtAuthenticationProvider;
 import org.summerclouds.common.security.jwt.JwtConfigurer;
-import org.summerclouds.common.security.permissions.Acl;
+import org.summerclouds.common.security.permissions.PermSet;
 import org.summerclouds.common.security.permissions.ResourceAceVoter;
 import org.summerclouds.common.security.permissions.RoleAceVoter;
 
@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .withUser("admin").password(encoder().encode("admin"))
         .authorities(
-        		new Acl("web:*:/secret:Access secrets", "role:*:admin:Access admin role")
+        		new PermSet("web:*:/secret:Access secrets", "role:*:admin:Access admin role")
 //        		,new SimpleGrantedAuthority("ADMIN")
         		)
         ;

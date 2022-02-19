@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.summerclouds.common.core.tool.Base64;
+import org.summerclouds.common.core.tool.MHttp;
 import org.summerclouds.common.core.tool.MJson;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -74,7 +74,7 @@ public class HelloSecretTests {
 	
 	public HttpHeaders getBasicAuth(String user, String passwd) {
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Basic " + Base64.encode(user + ":" + passwd));
+		headers.add(MHttp.HEADER_AUTHORIZATION, MHttp.toBasicAuthorization(user, passwd));
 		return headers;
 	}
 }

@@ -15,13 +15,13 @@ public class CustomBasedVoter implements AccessDecisionVoter<Object> {
 	}
 
 	@Override
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		System.out.println("### SUPPORT CLASS: " + clazz);
 		return true;
 	}
 
 	@Override
-	public int vote(Authentication authentication, Object object, Collection attributes) {
+	public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes) {
 		// TODO Auto-generated method stub
 		System.out.println("### VOTE: " + authentication + "\n    " + object + "\n    " + attributes);
 		return ACCESS_ABSTAIN;
