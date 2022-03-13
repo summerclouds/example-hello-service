@@ -21,28 +21,12 @@ public class HelloController extends MLog {
 	@GetMapping("/hello")
 	@Secured("ace_rest")
 	public Hello hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		log().i("call /hello");
+		log().i("call /hello - before the scope");
 		try (IScope scope = MTracing.enter("aloa", "a", "b") ) {
 			log().i("in the scope");
 			MThread.sleepForSure(1000);
 		}
-		
-//		Tracer tracer = MSpring.lookup(Tracer.class);
-//		System.out.println("CURRENT " + tracer.currentSpan());
-//		tracer.currentSpan().tag("a", "b");
-//		Span span = tracer.currentSpan().annotate("boarrr");
-//		span.finish();
-		
-//		Tracer tracer = MSpring.lookup(Tracer.class);
-//		Span current = tracer.currentSpan();
-//		System.out.println("CURRENT: " + current);
-//		current.tag("a", "b");
-//		Span newSpan = tracer.nextSpan().name("calculateTax");
-//		try (Tracer.SpanInScope ws = tracer.withSpan(newSpan.start())) {
-//			System.out.println("CURRENT2: " + tracer.currentSpan());
-//		}
-//		newSpan.end();
-//		System.out.println("CURRENT3: " + tracer.currentSpan());
+		log().i("after the scope");
 		
 		return new Hello(counter.incrementAndGet(), String.format(template, name));
 	}
