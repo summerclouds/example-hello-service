@@ -31,4 +31,13 @@ docker run -d --name otel-collector \
   otel/opentelemetry-collector
 ```
 
+Test
+
+```
+http://localhost:8080/hello
+
+http://localhost:8080/error400
+
+```
+
 

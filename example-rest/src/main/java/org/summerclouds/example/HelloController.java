@@ -20,7 +20,7 @@ public class HelloController extends MLog {
 
 	@GetMapping("/hello")
 	@Secured("ace_rest")
-	public Hello greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+	public Hello hello(@RequestParam(value = "name", defaultValue = "World") String name) {
 		log().i("call /hello");
 		try (IScope scope = MTracing.enter("aloa", "a", "b") ) {
 			log().i("in the scope");
