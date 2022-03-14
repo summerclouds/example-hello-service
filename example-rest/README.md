@@ -38,6 +38,13 @@ http://localhost:8080/hello
 
 http://localhost:8080/error400
 
+Jaeger UI:
+http://localhost:16686/
+
 ```
+
+Access
+
+user - user
 
 
