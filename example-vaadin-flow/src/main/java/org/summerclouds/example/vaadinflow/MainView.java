@@ -10,7 +10,7 @@ public class MainView extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	public MainView() {
-		add(new Text("Welcome to MainView."));
+		add(new Text("Welcome to MainView. " + this.toString()));
 	}
 
 }

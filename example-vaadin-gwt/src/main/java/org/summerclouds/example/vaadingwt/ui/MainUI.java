@@ -1,21 +1,18 @@
 package org.summerclouds.example.vaadingwt.ui;
 
+import java.awt.Panel;
+
 import org.summerclouds.example.vaadingwt.view.ErrorView;
 import org.summerclouds.example.vaadingwt.view.UIScopeView;
 import org.summerclouds.example.vaadingwt.view.ViewScopeView;
 
-import com.vaadin.navigator.View;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.navigator.ViewDisplay;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI(path = MainUI.APP_ROOT)
