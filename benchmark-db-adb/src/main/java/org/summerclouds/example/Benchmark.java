@@ -8,6 +8,7 @@ import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.util.MArgs;
 import org.summerclouds.common.core.util.StopWatch;
+import org.summerclouds.common.db.DbManagerJdbc;
 import org.summerclouds.common.db.xdb.XdbService;
 
 public class Benchmark {
@@ -91,6 +92,11 @@ public class Benchmark {
 
 	private void cleanup() throws MException {
         System.out.println("Cleanup ADB");
+        try {
+        	((DbManagerJdbc)repo).getPool().createStatement("DELETE FROM PageEntry_").getStatement().executeUpdate(null);
+        } catch (Throwable t) {
+        	t.printStackTrace();
+        }
         for (PageEntry entry : repo.getAll(PageEntry.class)) {
         	repo.delete(entry);
         }
