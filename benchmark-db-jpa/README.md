@@ -12,4 +12,5 @@ docker run --rm \
  --env spring.datasource.url=jdbc:mysql://mariadb/test \
  --env spring.datasource.username=myuser \
  --env spring.datasource.password=my_cool_secret \
- benchmark-db-jpa:0.0.1-SNAPSHOT
+ --env spring.jpa.hibernate.ddl-auto=update \
+ benchmark-db-jpa:0.0.1-SNAPSHOT -c 100000 -l 100

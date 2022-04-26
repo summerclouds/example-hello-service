@@ -25,7 +25,10 @@ public class ExampleServiceApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		XdbManager manager = M.l(XdbManager.class);
 		System.out.println(Arrays.deepToString(manager.getServiceNames()));
-		new Benchmark(new MArgs(new String[0]),  manager.getService("default")).run();
+		new Benchmark(new MArgs(args, 
+				MArgs.opt('c', null, 1, false, "Amount of objects to create"),
+				MArgs.opt('l', null, 1, false, "Amount of read loops")
+				),  manager.getService("default")).run();
 	}
 	
 }

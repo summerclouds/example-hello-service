@@ -21,7 +21,7 @@ docker run --rm \
  --env xdb.default.pool.rw.url=jdbc:mysql://mariadb/test \
  --env xdb.default.pool.rw.user=myuser \
  --env xdb.default.pool.rw.password=my_cool_secret \
- benchmark-db-adb:0.0.1-SNAPSHOT
+ benchmark-db-adb:0.0.1-SNAPSHOT -c 100000 -l 100
 
  
 docker stop mariadb

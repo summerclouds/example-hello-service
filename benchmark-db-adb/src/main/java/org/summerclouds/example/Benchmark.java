@@ -9,6 +9,7 @@ import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.util.MArgs;
 import org.summerclouds.common.core.util.StopWatch;
 import org.summerclouds.common.db.DbManagerJdbc;
+import org.summerclouds.common.db.sql.DbConnection;
 import org.summerclouds.common.db.xdb.XdbService;
 
 public class Benchmark {
@@ -19,8 +20,10 @@ public class Benchmark {
 
 	public Benchmark(MArgs args, XdbService service) {
 		this.repo = service;
-		cnt = MCast.toint(args.getOption("cnt"), 1000000);
-		readLoops = MCast.toint(args.getOption("loops"), 10);
+		cnt = MCast.toint(args.getOption("c").getValue(), 1000000);
+		readLoops = MCast.toint(args.getOption("l").getValue(), 10);
+		System.out.println("CNT  : " + cnt);
+		System.out.println("LOOPS: " + readLoops);
 	}
 
 	public void run() throws Exception {
@@ -93,7 +96,10 @@ public class Benchmark {
 	private void cleanup() throws MException {
         System.out.println("Cleanup ADB");
         try {
-        	((DbManagerJdbc)repo).getPool().createStatement("DELETE FROM PageEntry_").getStatement().executeUpdate(null);
+        	try (DbConnection con = ((DbManagerJdbc)repo).getPool().getConnection()) {
+	        	con.createStatement("DELETE FROM PageEntry_").execute(null);
+	        	con.commit();
+        	}
         } catch (Throwable t) {
         	t.printStackTrace();
         }

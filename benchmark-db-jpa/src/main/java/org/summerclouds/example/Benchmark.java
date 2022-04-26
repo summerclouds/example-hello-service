@@ -16,8 +16,10 @@ public class Benchmark {
 
 	public Benchmark(MArgs args, PageEntryRepository repository) {
 		this.repo = repository;
-		cnt = MCast.toint(args.getOption("cnt"), 1000000);
-		readLoops = MCast.toint(args.getOption("loops"), 10);
+		cnt = MCast.toint(args.getOption("c").getValue(), 1000000);
+		readLoops = MCast.toint(args.getOption("l").getValue(), 10);
+		System.out.println("CNT  : " + cnt);
+		System.out.println("LOOPS: " + readLoops);
 	}
 
 	public void run() throws Exception {

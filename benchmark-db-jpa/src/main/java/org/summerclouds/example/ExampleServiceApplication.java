@@ -16,7 +16,10 @@ public class ExampleServiceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		PageEntryRepository repository = M.l(PageEntryRepository.class);
-		new Benchmark(new MArgs(args), repository).run();
+		new Benchmark(new MArgs(args,
+				MArgs.opt('c', null, 1, false, "Amount of objects to create"),
+				MArgs.opt('l', null, 1, false, "Amount of read loops")
+				), repository).run();
 	}
 	
 }
