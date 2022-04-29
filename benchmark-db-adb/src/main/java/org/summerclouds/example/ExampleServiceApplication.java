@@ -5,10 +5,12 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Profile;
 import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.util.MArgs;
 import org.summerclouds.common.db.xdb.XdbManager;
 
+@Profile("!test")
 @SpringBootApplication(scanBasePackages = { "org.summerclouds"})
 public class ExampleServiceApplication implements CommandLineRunner {
 

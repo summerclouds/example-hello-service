@@ -17,7 +17,7 @@ docker run --name mariadb -d \
 
 docker run --rm \
  --link mariadb:mariadb \
- --env xdb.default.pool.rw.driver=com.mysql.jdbc.Driver \
+ --env xdb.default.pool.rw.driver=org.mariadb.jdbc.Driver \
  --env xdb.default.pool.rw.url=jdbc:mysql://mariadb/test \
  --env xdb.default.pool.rw.user=myuser \
  --env xdb.default.pool.rw.password=my_cool_secret \
